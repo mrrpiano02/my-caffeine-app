@@ -1,5 +1,6 @@
 ### my-caffeine-app
-_Java clone of Caffeine anti-sleep utility_ Link: [https://www.zhornsoftware.co.uk/caffeine/](https://www.zhornsoftware.co.uk/caffeine/)
+_Java clone of Caffeine anti-sleep utility_ 
+Link: [https://www.zhornsoftware.co.uk/caffeine/](https://www.zhornsoftware.co.uk/caffeine/)
 
 This app serves as a GUI utility for preventing one's system from sleeping. It does so by sending a keyboard signal (F15) once per minute, much like the original Caffeine app.
 
