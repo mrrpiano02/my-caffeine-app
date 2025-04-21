@@ -19,4 +19,4 @@ One can simply download and run the .jar file using `java -jar my-caffeine.jar`
 
 ### Original Application
 
-Link to [Original Caffeine Application](https://www.zhornsoftware.co.uk/caffeine/)
+Link to [Original Caffeine Application](https://www.zhornsoftware.co.uk/caffeine/) by Zhorn Software
