@@ -5,6 +5,7 @@ public class Clock {
 	
 	private int rawTime, oldRawTime;
 	private boolean timeLimit, isRunning = false, started = false;
+	private int rawHour, rawMinute, rawSecond;
 	public String displayedTime;
 	private CounterThread ct;
 	
@@ -12,6 +13,10 @@ public class Clock {
 		rawTime = 1800;
 		oldRawTime = rawTime;
 		timeLimit = true;
+		
+		rawHour = rawTime / 3600;
+		rawMinute = (rawTime-(3600*rawHour)) / 60;
+		rawSecond = rawTime % 60;
 		displayedTime = "00 30 00";
 	}
 	
@@ -19,26 +24,32 @@ public class Clock {
 	public void toggleTimeLimit() {
 		timeLimit = !timeLimit;
 		setRawTime(timeLimit);
-		displayedTime = timeLimit ? rawToDisplay(rawTime) : "[/]";
+		updateTime();
+		displayedTime = timeLimit ? rawToDisplay() : "[/]";
 	}
 	
 	// takes raw time value (seconds only) and converts it to friendly hh:mm:ss format
-	private String rawToDisplay(int rawTime) {
-		int rawHour = rawTime / 3600;
-		int rawMinute = (rawTime - (3600*rawHour)) / 60;
-		int rawSecond = rawTime % 60;
-		
-		String hour = String.format("%02d", rawHour);
-		String minute = String.format("%02d", rawMinute);
-		String second = String.format("%02d", rawSecond);
-		
-		return hour + " " + minute + " " + second;
+	private String rawToDisplay() {
+		updateTime();
+		return String.format("%02d %02d %02d", rawHour, rawMinute, rawSecond);
+	}
+	
+	public void updateTime() {
+		rawHour = rawTime / 3600;
+		rawMinute = (rawTime - (3600*rawHour)) / 60;
+		rawSecond = rawTime % 60;
+	}
+	
+	public void updateDisplayTime(JLabel timeDisplay) {
+		displayedTime = rawToDisplay();
+		timeDisplay.setText(displayedTime);
 	}
 	
 	// decreases time + updates display
 	public void decrementTime() {
 		rawTime--;
-		displayedTime = rawToDisplay(rawTime);
+		updateTime();
+		displayedTime = rawToDisplay();
 	}
 	
 	// increases time (no display update necessary since infinite-only)
@@ -65,8 +76,8 @@ public class Clock {
 	// on timerVal slider change
 	public void changeTime(int minutes) {
 		rawTime = 60*minutes;
-		displayedTime = rawToDisplay(rawTime);
 		oldRawTime = rawTime;
+		updateTime();
 	}
 	
 	// start new CounterThread if none exist or resume current thread
@@ -93,7 +104,8 @@ public class Clock {
 	public void endTimer() {
 		isRunning = false;
 		rawTime = oldRawTime;
-		displayedTime = rawToDisplay(rawTime);
+		updateTime();
+		displayedTime = rawToDisplay();
 		
 		ct.kill();
 		ct = null;
@@ -115,6 +127,6 @@ public class Clock {
 	}
 	
 	public boolean isDone() {
-		return (rawTime < 0);
+		return (rawTime <= 0);
 	}
 }

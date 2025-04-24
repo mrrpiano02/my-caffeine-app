@@ -103,16 +103,13 @@ public class Caffeine {
 		window.add(buttonContainer);
 		
 		// add event listeners
-		timerVal.addChangeListener(new ChangeListener() {
+		
+		timerVal.addMouseListener(new MouseAdapter() {
 			
 			@Override
-			public void stateChanged(ChangeEvent e) {
-				// TODO Auto-generated method stub
-				JSlider source = (JSlider)e.getSource();
-				if (source.getValueIsAdjusting() && source.isEnabled()) {
-					GUIControls.changeTimerValue(timerVal.getValue(), c);
-					if (c.getTimeLimit()) GUIControls.updateTimer(timeDisplay, c);
-				}
+			public void mouseReleased(MouseEvent e) {
+				GUIControls.changeTimerValue(timerVal.getValue(), c);
+				GUIControls.changeDisplayTime(timeDisplay, c);
 			}
 		});
 		

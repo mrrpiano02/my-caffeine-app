@@ -3,12 +3,11 @@ import javax.swing.SwingWorker;
 import java.awt.Robot;
 import java.awt.AWTException;
 import javax.swing.JLabel;
-import java.time.LocalTime;
 
 public class CounterThread {
 
-	static boolean pause;
-	static boolean killSignal; //terminates thread
+	public volatile boolean pause;
+	public volatile boolean killSignal; //terminates thread
 	
 	// creates new thread + resets flags
 	public CounterThread() {
@@ -21,9 +20,6 @@ public class CounterThread {
 			Robot keepAwake = new Robot(); // object simulates key presses
 			SwingWorker<Object, Object> s = new SwingWorker<Object, Object>() {
 				
-				LocalTime t1 = LocalTime.now();
-				LocalTime t2 = LocalTime.now();
-				
 				@Override
 				protected String doInBackground() throws Exception {
 					while (!c.isDone()) {
@@ -33,15 +29,12 @@ public class CounterThread {
 						}
 						if (!pause) {
 							if (c.getTimeLimit()) {
-								t2 = LocalTime.now();
 								
-								// decrement time if one second since last decrement has passed
-								if (t2.isAfter(t1.plusSeconds(1))) {
-									c.decrementTime();
-									timeDisplay.setText(c.displayedTime);
-									
-									t1 = LocalTime.now();
-								}
+								// decrement time
+								
+								c.decrementTime();
+								timeDisplay.setText(c.displayedTime);
+								
 							}
 							
 							// time increases if execution has no time limit
@@ -53,10 +46,10 @@ public class CounterThread {
 							if (c.pressVirtualKey()) {
 								keepAwake.keyPress(0x7e);
 								keepAwake.keyRelease(0x7e);
-								System.out.println("signal sent");
 							}
 						}
 
+						// sleep thread for 1 second
 						Thread.sleep(1000);
 					}
 

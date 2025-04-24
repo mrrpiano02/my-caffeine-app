@@ -17,6 +17,10 @@ public final class GUIControls {
 		c.changeTime(value);
 	}
 	
+	public static void changeDisplayTime(JLabel timeDisplay, Clock c) {
+		c.updateDisplayTime(timeDisplay);
+	}
+	
 	public static void infiniteToggle(Clock c) {
 		c.toggleTimeLimit();
 	}
