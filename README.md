@@ -8,7 +8,7 @@ The main difference between the two utilities is that this app, being built unde
 Currently, this app is controllable exclusively via GUI - however, I would like to publish an applet interface as well.
 
 ### Installation
-One can simply download and run the .jar file using `java -jar my-caffeine.jar`
+One can simply download and run the .jar file by navigating to the project directory and using the shell script (`./my-caffeine.sh`) or batch script (`my-caffeine.bat`).
 
 ### Compilation
 1. Clone this repository using `git clone https://github.com/mrrpiano02/my-caffeine-app.git`
