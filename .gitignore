@@ -3,5 +3,3 @@ build/*
 .git/*
 .project
 .settings/*
-
-/bin/
