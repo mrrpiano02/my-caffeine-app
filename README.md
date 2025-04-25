@@ -17,6 +17,8 @@ One can simply download and run the .jar file using `java -jar my-caffeine.jar`
 4. Compile the source code using `javac my-caffeine/*.java -d build`
 5. Navigate to the build directory (`cd build`) and execute using `java my-caffeine.Caffeine`
 
-### Original Application
+### Credits 
 
 Link to [Original Caffeine Application](https://www.zhornsoftware.co.uk/caffeine/) by Zhorn Software
+
+Font used for timer is [Segment7](https://fontlibrary.org/en/font/segment7) by Cedric Knight

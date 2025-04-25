@@ -1,10 +1,11 @@
 package my_caffeine;
 
 import java.util.Hashtable;
+import java.io.File;
+import java.io.IOException;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class Caffeine {
 	private JFrame window;
@@ -159,6 +160,22 @@ public class Caffeine {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
+				File fontFile = new File("assets/Segment7Standard.otf");
+				GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				try {
+					Font timerFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+					g.registerFont(timerFont);
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					g = null;
+					fontFile = null;
+					System.gc();
+				}
+				
 				try {
 					new Caffeine();
 				}
