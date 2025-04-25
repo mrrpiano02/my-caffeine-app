@@ -20,6 +20,8 @@ public class Caffeine {
 	private JPanel checkboxContainer;
 	
 	private Clock c;
+	//private TimerEvt t;
+	//private ResetUICheckThread r;
 	
 	// creates labels for timerVal slider element
 	private Hashtable createLabelTable() {
@@ -108,8 +110,10 @@ public class Caffeine {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				GUIControls.changeTimerValue(timerVal.getValue(), c);
-				GUIControls.changeDisplayTime(timeDisplay, c);
+				if (c.getTimeLimit()) {
+					GUIControls.changeTimerValue(timerVal.getValue(), c);
+					GUIControls.changeDisplayTime(timeDisplay, c);
+				}
 			}
 		});
 		
@@ -125,7 +129,7 @@ public class Caffeine {
 		toggleCaffeine.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GUIControls.toggleTimer(timeDisplay, toggleCaffeine, c);
+				GUIControls.toggleTimer(timeDisplay, timerVal, infinite, stopCaffeine, toggleCaffeine, c);
 				timerVal.setEnabled(false);
 				infinite.setEnabled(false);
 				stopCaffeine.setEnabled(true);
@@ -142,6 +146,7 @@ public class Caffeine {
 				stopCaffeine.setEnabled(false);
 			}
 		});
+
 		
 		// finally, display window
 		window.setVisible(true);

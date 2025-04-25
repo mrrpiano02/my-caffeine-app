@@ -21,7 +21,7 @@ public class CounterThread {
 			SwingWorker<Object, Object> s = new SwingWorker<Object, Object>() {
 				
 				@Override
-				protected String doInBackground() throws Exception {
+				protected Integer doInBackground() throws Exception {
 					while (!c.isDone()) {
 						
 						if (killSignal) {
@@ -53,7 +53,7 @@ public class CounterThread {
 						Thread.sleep(1000);
 					}
 
-					return "done";
+					return c.isDone() ? 0 : 1;
 				}
 			};
 			

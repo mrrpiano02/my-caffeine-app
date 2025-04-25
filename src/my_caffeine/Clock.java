@@ -1,13 +1,18 @@
 package my_caffeine;
 import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
 
-public class Clock {
+public class Clock implements TimerEventListener {
 	
 	private int rawTime, oldRawTime;
 	private boolean timeLimit, isRunning = false, started = false;
 	private int rawHour, rawMinute, rawSecond;
 	public String displayedTime;
 	private CounterThread ct;
+	private TimerEvt t = new TimerEvt();
+	private ResetUICheckThread r;
 	
 	Clock() {
 		rawTime = 1800;
@@ -69,7 +74,7 @@ public class Clock {
 		}
 		else {
 			oldRawTime = rawTime;
-			rawTime = 0;
+			rawTime = 1;
 		}
 	}
 	
@@ -81,12 +86,18 @@ public class Clock {
 	}
 	
 	// start new CounterThread if none exist or resume current thread
-	public void startTimer(JLabel timeDisplay, Clock c) {
+	public void startTimer(JLabel timeDisplay, JSlider timerVal, JCheckBox infinite, JButton stopCaffeine, JButton toggleCaffeine, Clock c) {
 		toggleRun();
 		if (!started) {
 			ct = new CounterThread();
-
 			ct.countDown(c, timeDisplay);
+			
+			t = new TimerEvt();
+			t.addListener(c);
+			
+			r = new ResetUICheckThread(t);
+			r = new ResetUICheckThread(t);
+			r.check(timerVal, infinite, stopCaffeine, toggleCaffeine);
 			started = true;
 		}
 		else {
@@ -109,6 +120,9 @@ public class Clock {
 		
 		ct.kill();
 		ct = null;
+		r.kill();
+		r = null;
+		
 		System.gc();
 		
 		started = false;
@@ -128,5 +142,19 @@ public class Clock {
 	
 	public boolean isDone() {
 		return (rawTime <= 0);
+	}
+
+	@Override
+	public boolean onTimerDone(JSlider timerVal, JCheckBox infinite, JButton stopCaffeine, JButton toggleCaffeine) {
+		// TODO Auto-generated method stub
+		if (isDone()) {
+			endTimer();
+			timerVal.setEnabled(true);
+			infinite.setEnabled(true);
+			stopCaffeine.setEnabled(false);
+			toggleCaffeine.setText("Caffeinate");
+			return true;
+		}
+		return false;
 	}
 }

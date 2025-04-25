@@ -1,6 +1,8 @@
 package my_caffeine;
 import javax.swing.JLabel;
+import javax.swing.JSlider;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 // wrapper class to keep GUI controls more organized and labeled
 public final class GUIControls {
@@ -25,13 +27,13 @@ public final class GUIControls {
 		c.toggleTimeLimit();
 	}
 	
-	public static void toggleTimer(JLabel timeDisplay, JButton toggle, Clock c) {
+	public static void toggleTimer(JLabel timeDisplay, JSlider timerVal, JCheckBox infinite, JButton stopCaffeine, JButton toggle, Clock c) {
 		if (c.running()) {
 			c.pauseTimer();
 			toggle.setText("Resume");
 		}
 		else {
-			c.startTimer(timeDisplay, c);
+			c.startTimer(timeDisplay, timerVal, infinite, stopCaffeine, toggle, c);
 			toggle.setText("Pause");
 		}
 	}
