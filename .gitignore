@@ -1,4 +1,4 @@
-bin/*
+build/*
 .classpath
 .git/*
 .project
