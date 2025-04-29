@@ -13,12 +13,14 @@ public class ResetUICheckThread {
 		this.t = t;
 	}
 	
+	// once per minute (smallest unit of selectable measurement), check if timer is done
+	// if so, send signal to kill CounterThread + reset UI to state upon launch
 	public void check(JSlider timerVal, JCheckBox infinite, JButton stopCaffeine, JButton toggle) {
 		SwingWorker<Object, Object> s = new SwingWorker<Object, Object>() {
 			@Override
 			public Integer doInBackground() {
 				
-				while (!t.checkIfDone(timerVal, infinite, stopCaffeine, toggle) && !kill==true) {
+				while (!t.checkIfDone(timerVal, infinite, stopCaffeine, toggle) && !kill) {
 					
 					try {
 						Thread.sleep(60000);

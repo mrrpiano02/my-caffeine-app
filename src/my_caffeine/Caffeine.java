@@ -61,7 +61,7 @@ public class Caffeine {
 		center.insets = new Insets(0 ,0, 10, 0);
 		
 		// settings
-		window.setSize(300,400);
+		window.setSize(325,450);
 		window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.PAGE_AXIS));
 		window.setResizable(false);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

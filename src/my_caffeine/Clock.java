@@ -35,7 +35,6 @@ public class Clock implements TimerEventListener {
 	
 	// takes raw time value (seconds only) and converts it to friendly hh:mm:ss format
 	private String rawToDisplay() {
-		updateTime();
 		return String.format("%02d %02d %02d", rawHour, rawMinute, rawSecond);
 	}
 	
@@ -96,7 +95,6 @@ public class Clock implements TimerEventListener {
 			t.addListener(c);
 			
 			r = new ResetUICheckThread(t);
-			r = new ResetUICheckThread(t);
 			r.check(timerVal, infinite, stopCaffeine, toggleCaffeine);
 			started = true;
 		}
@@ -144,6 +142,7 @@ public class Clock implements TimerEventListener {
 		return (rawTime <= 0);
 	}
 
+	// stops timer and resets UI back to state upon launch
 	@Override
 	public boolean onTimerDone(JSlider timerVal, JCheckBox infinite, JButton stopCaffeine, JButton toggleCaffeine) {
 		// TODO Auto-generated method stub

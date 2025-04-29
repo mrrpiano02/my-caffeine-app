@@ -22,11 +22,8 @@ public class CounterThread {
 				
 				@Override
 				protected Integer doInBackground() throws Exception {
-					while (!c.isDone()) {
+					while (!c.isDone() && !killSignal) {
 						
-						if (killSignal) {
-							continue;
-						}
 						if (!pause) {
 							if (c.getTimeLimit()) {
 								
