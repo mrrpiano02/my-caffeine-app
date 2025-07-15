@@ -1,2 +1,2 @@
-#!/usr/bin/env xdg-open
+#!/bin/bash
 java -jar bin/my-caffeine.jar

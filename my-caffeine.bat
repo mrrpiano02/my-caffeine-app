@@ -1,3 +1,2 @@
 @echo off
-
-java -jar bin\\my-caffeine.jar
+java -jar bin/my-caffeine.jar
